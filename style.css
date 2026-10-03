@@ -6,22 +6,22 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --olive:        #a4f205; /* vibrant lime */
-  --olive-light:  #baff26;
-  --olive-dim:    #4a7300;
-  --olive-muted:  rgba(164,242,5,0.15);
+  --olive:        #a8ff00; /* matching image lime */
+  --olive-light:  #c2ff33;
+  --olive-dim:    #538000;
+  --olive-muted:  rgba(168, 255, 0, 0.15);
 
-  --bg:     #0d0d0d;
-  --card:   #141414;
-  --border: #222222;
-  --hover:  #1a1a1a;
+  --bg:     #121212;
+  --card:   #1a1a1a;
+  --border: #2a2a2a;
+  --hover:  #222222;
 
-  --white:  #ffffff;
-  --muted:  rgba(255,255,255,0.45);
-  --faint:  rgba(255,255,255,0.18);
+  --white:  #f0f0f0;
+  --muted:  rgba(240, 240, 240, 0.5);
+  --faint:  rgba(240, 240, 240, 0.18);
 
   --danger:  #ff4d4d;
-  --success: #a4f205;
+  --success: #a8ff00;
 
   --r:  8px;
   --rL: 12px;
