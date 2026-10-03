@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PDF Mithura - Free, browser-based PDF tools. Split, convert, combine and organize PDFs. Your files never leave your device." />
+  <meta name="theme-color" content="#a4f205" />
+  <title>PDF Mithura – Split, Convert & Combine PDFs Free</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="#" class="logo" id="nav-home" aria-label="PDF Mithura Home">
+        <span class="logo-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="22" height="22" rx="5" fill="#a4f205"/>
+            <path d="M6 6h7l4 4v6a1 1 0 01-1 1H6a1 1 0 01-1-1V7a1 1 0 011-1z" fill="#0a0a0a" opacity="0.85"/>
+            <path d="M13 6l4 4h-3a1 1 0 01-1-1V6z" fill="#0a0a0a" opacity="0.4"/>
+          </svg>
+        </span>
+        <span class="logo-text">PDF <span class="logo-accent">Mithura</span></span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <a href="#" class="nav-link" data-tool="home">Home</a>
+        <a href="#" class="nav-link" data-tool="splitter">PDF Splitter</a>
+        <a href="#" class="nav-link" data-tool="to-jpg">PDF to JPG</a>
+        <a href="#" class="nav-link" data-tool="to-pdf">JPG to PDF</a>
+        <a href="#" class="nav-link" data-tool="combiner">PDF Combiner</a>
+      </nav>
+
+      <div class="header-right">
+        <span class="privacy-badge" aria-label="Privacy guarantee">🔒 Files stay on your device</span>
+        <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav-overlay" id="mobile-overlay" aria-hidden="true">
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="#" class="mobile-nav-link" data-tool="home">🏠 Home</a>
+      <a href="#" class="mobile-nav-link" data-tool="splitter">✂️ PDF Splitter</a>
+      <a href="#" class="mobile-nav-link" data-tool="to-jpg">🖼️ PDF to JPG</a>
+      <a href="#" class="mobile-nav-link" data-tool="to-pdf">📄 JPG to PDF</a>
+      <a href="#" class="mobile-nav-link" data-tool="combiner">🔗 PDF Combiner</a>
+    </nav>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content" role="main">
+
+    <!-- ===== HOME PAGE ===== -->
+    <section id="page-home" class="page active" aria-label="Home">
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="container">
+          <div class="hero-badge">Free &amp; Private</div>
+          <h1 class="hero-title">PDF Tools. <span class="gradient-text">Browser-based.</span></h1>
+          <p class="hero-subtitle">Split, convert, and combine PDFs locally. Your files never leave your device.</p>
+          <div class="hero-actions">
+            <a href="#" class="btn btn-primary" data-tool="splitter">Get Started</a>
+            <a href="#" class="btn btn-ghost" data-tool="to-jpg">PDF to JPG</a>
+            <a href="#" class="btn btn-ghost" data-tool="combiner">Combine PDFs</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool Cards -->
+      <div class="container section">
+        <div class="tool-cards-grid" role="list">
+
+          <article class="tool-card" role="listitem">
+            <div class="tool-card-icon tool-card-icon--splitter" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/>
+                <line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/>
+                <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <h3 class="tool-card-title">PDF Splitter</h3>
+            <p class="tool-card-desc">Split a PDF into selected pages or separate individual PDFs with ease.</p>
+            <button class="btn btn-primary tool-card-btn" data-tool="splitter" aria-label="Open PDF Splitter tool">Open Tool</button>
+          </article>
+
+          <article class="tool-card" role="listitem">
+            <div class="tool-card-icon tool-card-icon--tojpg" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/>
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+              </svg>
+            </div>
+            <h3 class="tool-card-title">PDF to JPG</h3>
+            <p class="tool-card-desc">Convert PDF pages into high-quality JPG images at your chosen resolution.</p>
+            <button class="btn btn-primary tool-card-btn" data-tool="to-jpg" aria-label="Open PDF to JPG tool">Open Tool</button>
+          </article>
+
+          <article class="tool-card" role="listitem">
+            <div class="tool-card-icon tool-card-icon--topdf" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                <polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/>
+                <line x1="9" y1="15" x2="12" y2="12"/><line x1="15" y1="15" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <h3 class="tool-card-title">JPG to PDF</h3>
+            <p class="tool-card-desc">Convert multiple JPG or PNG images into a single professional PDF document.</p>
+            <button class="btn btn-primary tool-card-btn" data-tool="to-pdf" aria-label="Open JPG to PDF tool">Open Tool</button>
+          </article>
+
+          <article class="tool-card" role="listitem">
+            <div class="tool-card-icon tool-card-icon--combiner" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+              </svg>
+            </div>
+            <h3 class="tool-card-title">PDF Combiner</h3>
+            <p class="tool-card-desc">Combine multiple PDF files into one single document in your preferred order.</p>
+            <button class="btn btn-primary tool-card-btn" data-tool="combiner" aria-label="Open PDF Combiner tool">Open Tool</button>
+          </article>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== PDF SPLITTER PAGE ===== -->
+    <section id="page-splitter" class="page" aria-label="PDF Splitter" hidden>
+      <div class="container tool-page">
+        <div class="tool-header">
+          <button class="back-btn" data-tool="home" aria-label="Go back to home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+            Back
+          </button>
+          <div>
+            <h1 class="tool-title">PDF Splitter</h1>
+            <p class="tool-subtitle">Split PDF files into selected pages or individual documents.</p>
+          </div>
+          <button class="btn btn-outline reset-btn" id="splitter-reset-btn" aria-label="Reset PDF Splitter">Reset</button>
+        </div>
+
+        <div class="privacy-notice" role="status" aria-live="polite">🔒 Your files are processed locally and never uploaded.</div>
+
+        <!-- Upload area -->
+        <div class="upload-area" id="splitter-upload-area" role="button" tabindex="0" aria-label="Drop PDF file here or click to browse">
+          <div class="upload-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="12"/><line x1="15" y1="15" x2="12" y2="12"/></svg>
+          </div>
+          <p class="upload-title">Drop your PDF here</p>
+          <p class="upload-subtitle">or click to browse</p>
+          <input type="file" id="splitter-file-input" accept=".pdf" aria-label="Select PDF file" hidden />
+        </div>
+
+        <!-- File info -->
+        <div class="file-info-card" id="splitter-file-info" hidden>
+          <div class="file-info-inner">
+            <div class="file-info-icon" aria-hidden="true">📄</div>
+            <div class="file-info-details">
+              <span class="file-name" id="splitter-file-name"></span>
+              <span class="file-meta" id="splitter-file-meta"></span>
+            </div>
+            <button class="remove-file-btn" id="splitter-remove-file" aria-label="Remove selected file">✕</button>
+          </div>
+        </div>
+
+        <!-- Error message -->
+        <div class="error-message" id="splitter-error" role="alert" aria-live="assertive" hidden></div>
+
+        <!-- Page preview grid -->
+        <div id="splitter-pages-section" hidden>
+          <div class="pages-header">
+            <h2 class="pages-title">Pages (<span id="splitter-page-count">0</span>)</h2>
+            <div class="pages-actions">
+              <button class="btn btn-outline btn-sm" id="splitter-select-all" aria-label="Select all pages">Select All</button>
+              <button class="btn btn-outline btn-sm" id="splitter-clear-selection" aria-label="Clear page selection">Clear</button>
+            </div>
+          </div>
+          <div class="page-grid" id="splitter-page-grid" role="list" aria-label="PDF pages"></div>
+
+          <!-- Page range -->
+          <div class="option-card">
+            <label class="option-label" for="splitter-range-input">Page Range</label>
+            <div class="range-input-row">
+              <input type="text" id="splitter-range-input" class="text-input" placeholder="e.g. 1-3, 5, 7-9" aria-describedby="splitter-range-hint" />
+              <button class="btn btn-outline btn-sm" id="splitter-apply-range" aria-label="Apply page range">Apply</button>
+            </div>
+            <p class="input-hint" id="splitter-range-hint">Supports: 1 | 1-5 | 1,3,5 | 1-3,7-9</p>
+          </div>
+
+          <!-- Split mode -->
+          <div class="option-card">
+            <p class="option-label">Split Mode</p>
+            <div class="radio-group" role="radiogroup" aria-label="Split mode">
+              <label class="radio-label">
+                <input type="radio" name="split-mode" value="extract" checked id="split-mode-extract" />
+                <span class="radio-custom" aria-hidden="true"></span>
+                <div>
+                  <strong>Extract Selected Pages</strong>
+                  <p class="radio-desc">Creates one PDF with only the selected pages</p>
+                </div>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="split-mode" value="each" id="split-mode-each" />
+                <span class="radio-custom" aria-hidden="true"></span>
+                <div>
+                  <strong>Split Every Page</strong>
+                  <p class="radio-desc">Creates one PDF per page (page-1.pdf, page-2.pdf…)</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Action button -->
+          <div class="action-row">
+            <button class="btn btn-primary btn-lg" id="splitter-action-btn" aria-label="Split PDF">✂️ Split PDF</button>
+          </div>
+
+          <!-- Progress -->
+          <div class="progress-container" id="splitter-progress" hidden role="status" aria-live="polite">
+            <p class="progress-label" id="splitter-progress-label">Processing...</p>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="splitter-progress-bar-track">
+              <div class="progress-bar-fill" id="splitter-progress-fill"></div>
+            </div>
+          </div>
+
+          <!-- Result -->
+          <div class="result-card" id="splitter-result" hidden role="status" aria-live="polite">
+            <div class="result-icon success" aria-hidden="true">✅</div>
+            <p class="result-text" id="splitter-result-text"></p>
+            <button class="btn btn-primary btn-lg" id="splitter-download-btn" aria-label="Download split PDF">Download</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PDF TO JPG PAGE ===== -->
+    <section id="page-to-jpg" class="page" aria-label="PDF to JPG" hidden>
+      <div class="container tool-page">
+        <div class="tool-header">
+          <button class="back-btn" data-tool="home" aria-label="Go back to home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+            Back
+          </button>
+          <div>
+            <h1 class="tool-title">PDF to JPG</h1>
+            <p class="tool-subtitle">Convert PDF pages into high-quality JPG images.</p>
+          </div>
+          <button class="btn btn-outline reset-btn" id="tojpg-reset-btn" aria-label="Reset PDF to JPG tool">Reset</button>
+        </div>
+
+        <div class="privacy-notice">🔒 Your files are processed locally and never uploaded.</div>
+
+        <div class="upload-area" id="tojpg-upload-area" role="button" tabindex="0" aria-label="Drop PDF file here or click to browse">
+          <div class="upload-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          </div>
+          <p class="upload-title">Drop your PDF here</p>
+          <p class="upload-subtitle">or click to browse</p>
+          <input type="file" id="tojpg-file-input" accept=".pdf" aria-label="Select PDF file" hidden />
+        </div>
+
+        <div class="file-info-card" id="tojpg-file-info" hidden>
+          <div class="file-info-inner">
+            <div class="file-info-icon" aria-hidden="true">📄</div>
+            <div class="file-info-details">
+              <span class="file-name" id="tojpg-file-name"></span>
+              <span class="file-meta" id="tojpg-file-meta"></span>
+            </div>
+            <button class="remove-file-btn" id="tojpg-remove-file" aria-label="Remove selected file">✕</button>
+          </div>
+        </div>
+
+        <div class="error-message" id="tojpg-error" role="alert" aria-live="assertive" hidden></div>
+
+        <div id="tojpg-settings-section" hidden>
+          <!-- Settings -->
+          <div class="settings-grid">
+            <div class="option-card">
+              <label class="option-label" for="tojpg-pages-select">Pages</label>
+              <select class="select-input" id="tojpg-pages-select" aria-label="Select pages to convert">
+                <option value="all">All Pages</option>
+                <option value="range">Page Range</option>
+                <option value="selected">Selected Pages</option>
+              </select>
+              <div id="tojpg-range-row" style="margin-top:10px;" hidden>
+                <input type="text" id="tojpg-range-input" class="text-input" placeholder="e.g. 1-3, 5, 7-9" aria-label="Enter page range" />
+              </div>
+              <div id="tojpg-page-grid-container" hidden>
+                <div class="pages-header" style="margin-top:12px;">
+                  <span class="option-label" style="margin:0;">Select Pages</span>
+                  <div class="pages-actions">
+                    <button class="btn btn-outline btn-sm" id="tojpg-select-all">All</button>
+                    <button class="btn btn-outline btn-sm" id="tojpg-clear-all">Clear</button>
+                  </div>
+                </div>
+                <div class="page-grid page-grid--small" id="tojpg-page-grid" role="list" aria-label="Select PDF pages"></div>
+              </div>
+            </div>
+
+            <div class="option-card">
+              <label class="option-label" for="tojpg-quality-select">Image Quality</label>
+              <select class="select-input" id="tojpg-quality-select" aria-label="Select image quality">
+                <option value="0.6">Low</option>
+                <option value="0.8" selected>Medium</option>
+                <option value="0.95">High</option>
+              </select>
+            </div>
+
+            <div class="option-card">
+              <label class="option-label" for="tojpg-dpi-select">Resolution (DPI)</label>
+              <select class="select-input" id="tojpg-dpi-select" aria-label="Select resolution DPI">
+                <option value="1">72 DPI</option>
+                <option value="2" selected>150 DPI</option>
+                <option value="2.8">200 DPI</option>
+                <option value="4.2">300 DPI</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-primary btn-lg" id="tojpg-action-btn" aria-label="Convert PDF to JPG">🖼️ Convert to JPG</button>
+          </div>
+
+          <div class="progress-container" id="tojpg-progress" hidden role="status" aria-live="polite">
+            <p class="progress-label" id="tojpg-progress-label">Processing...</p>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="tojpg-progress-bar-track">
+              <div class="progress-bar-fill" id="tojpg-progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="result-card" id="tojpg-result" hidden role="status" aria-live="polite">
+            <div class="result-icon success" aria-hidden="true">✅</div>
+            <p class="result-text" id="tojpg-result-text"></p>
+            <button class="btn btn-primary btn-lg" id="tojpg-download-btn" aria-label="Download converted images">Download</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== JPG TO PDF PAGE ===== -->
+    <section id="page-to-pdf" class="page" aria-label="JPG to PDF" hidden>
+      <div class="container tool-page">
+        <div class="tool-header">
+          <button class="back-btn" data-tool="home" aria-label="Go back to home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+            Back
+          </button>
+          <div>
+            <h1 class="tool-title">JPG to PDF</h1>
+            <p class="tool-subtitle">Convert images into a single PDF document.</p>
+          </div>
+          <button class="btn btn-outline reset-btn" id="topdf-reset-btn" aria-label="Reset JPG to PDF tool">Reset</button>
+        </div>
+
+        <div class="privacy-notice">🔒 Your files are processed locally and never uploaded.</div>
+
+        <div class="upload-area upload-area--multi" id="topdf-upload-area" role="button" tabindex="0" aria-label="Drop images here or click to browse">
+          <div class="upload-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          </div>
+          <p class="upload-title">Drop your images here</p>
+          <p class="upload-subtitle">Supports JPG, JPEG, PNG • Multiple files allowed</p>
+          <input type="file" id="topdf-file-input" accept=".jpg,.jpeg,.png" multiple aria-label="Select image files" hidden />
+        </div>
+
+        <div class="error-message" id="topdf-error" role="alert" aria-live="assertive" hidden></div>
+
+        <!-- Image list -->
+        <div id="topdf-images-section" hidden>
+          <div class="pages-header">
+            <h2 class="pages-title">Images (<span id="topdf-image-count">0</span>)</h2>
+            <label class="btn btn-outline btn-sm" for="topdf-add-more-input" style="cursor:pointer;" aria-label="Add more images">+ Add More</label>
+            <input type="file" id="topdf-add-more-input" accept=".jpg,.jpeg,.png" multiple aria-label="Add more image files" hidden />
+          </div>
+          <p class="hint-text">Drag cards to reorder — the order determines page order in the PDF.</p>
+          <div class="image-list" id="topdf-image-list" role="list" aria-label="Images to convert"></div>
+
+          <!-- Settings -->
+          <div class="settings-grid">
+            <div class="option-card">
+              <label class="option-label" for="topdf-page-size">Page Size</label>
+              <select class="select-input" id="topdf-page-size" aria-label="Select PDF page size">
+                <option value="A4" selected>A4</option>
+                <option value="A5">A5</option>
+                <option value="Letter">Letter</option>
+                <option value="Legal">Legal</option>
+                <option value="Original">Original Image Size</option>
+              </select>
+            </div>
+
+            <div class="option-card">
+              <label class="option-label" for="topdf-orientation">Orientation</label>
+              <select class="select-input" id="topdf-orientation" aria-label="Select page orientation">
+                <option value="auto" selected>Auto</option>
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+              </select>
+            </div>
+
+            <div class="option-card">
+              <label class="option-label" for="topdf-image-fit">Image Fit</label>
+              <select class="select-input" id="topdf-image-fit" aria-label="Select image fit mode">
+                <option value="fit" selected>Fit to Page</option>
+                <option value="fill">Fill Page</option>
+                <option value="original">Original Size</option>
+              </select>
+            </div>
+
+            <div class="option-card">
+              <label class="option-label" for="topdf-margin">Margin</label>
+              <select class="select-input" id="topdf-margin" aria-label="Select page margin">
+                <option value="0">None</option>
+                <option value="20" selected>Small</option>
+                <option value="40">Medium</option>
+                <option value="60">Large</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-primary btn-lg" id="topdf-action-btn" aria-label="Create PDF from images">📄 Create PDF</button>
+          </div>
+
+          <div class="progress-container" id="topdf-progress" hidden role="status" aria-live="polite">
+            <p class="progress-label" id="topdf-progress-label">Processing...</p>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar-fill" id="topdf-progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="result-card" id="topdf-result" hidden role="status" aria-live="polite">
+            <div class="result-icon success" aria-hidden="true">✅</div>
+            <p class="result-text">PDF created successfully!</p>
+            <button class="btn btn-primary btn-lg" id="topdf-download-btn" aria-label="Download created PDF">Download PDF</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PDF COMBINER PAGE ===== -->
+    <section id="page-combiner" class="page" aria-label="PDF Combiner" hidden>
+      <div class="container tool-page">
+        <div class="tool-header">
+          <button class="back-btn" data-tool="home" aria-label="Go back to home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+            Back
+          </button>
+          <div>
+            <h1 class="tool-title">PDF Combiner</h1>
+            <p class="tool-subtitle">Combine multiple PDF files into one document.</p>
+          </div>
+          <button class="btn btn-outline reset-btn" id="combiner-reset-btn" aria-label="Reset PDF Combiner">Reset</button>
+        </div>
+
+        <div class="privacy-notice">🔒 Your files are processed locally and never uploaded.</div>
+
+        <div class="upload-area upload-area--multi" id="combiner-upload-area" role="button" tabindex="0" aria-label="Drop PDF files here or click to browse">
+          <div class="upload-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          </div>
+          <p class="upload-title">Drop your PDF files here</p>
+          <p class="upload-subtitle">Multiple files allowed • Drag to reorder</p>
+          <input type="file" id="combiner-file-input" accept=".pdf" multiple aria-label="Select PDF files" hidden />
+        </div>
+
+        <div class="error-message" id="combiner-error" role="alert" aria-live="assertive" hidden></div>
+
+        <div id="combiner-files-section" hidden>
+          <div class="pages-header">
+            <h2 class="pages-title">PDF Files (<span id="combiner-file-count">0</span>)</h2>
+            <label class="btn btn-outline btn-sm" for="combiner-add-more-input" style="cursor:pointer;" aria-label="Add more PDF files">+ Add More</label>
+            <input type="file" id="combiner-add-more-input" accept=".pdf" multiple aria-label="Add more PDF files" hidden />
+          </div>
+          <p class="hint-text">Drag cards to reorder — the order determines the final combined PDF order.</p>
+          <div class="pdf-list" id="combiner-pdf-list" role="list" aria-label="PDF files to combine"></div>
+
+          <div class="action-row">
+            <button class="btn btn-primary btn-lg" id="combiner-action-btn" aria-label="Combine PDF files">🔗 Combine PDFs</button>
+          </div>
+
+          <div class="progress-container" id="combiner-progress" hidden role="status" aria-live="polite">
+            <p class="progress-label" id="combiner-progress-label">Processing...</p>
+            <div class="progress-bar-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar-fill" id="combiner-progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="result-card" id="combiner-result" hidden role="status" aria-live="polite">
+            <div class="result-icon success" aria-hidden="true">✅</div>
+            <p class="result-text">PDF combined successfully!</p>
+            <button class="btn btn-primary btn-lg" id="combiner-download-btn" aria-label="Download combined PDF">Download PDF</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <span class="logo-text">PDF <span class="logo-accent">Mithura</span></span>
+        <p>Free • Private • Browser-Based</p>
+      </div>
+      <div class="footer-credits">
+        <p class="footer-privacy">🔒 Your files never leave your device.</p>
+        <p class="designer-credit">Designed by <a href="https://charudesignstudio.vercel.app" target="_blank" rel="noopener noreferrer">Binoj Charuka</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast" role="alert" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- LIBRARIES (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <!-- APP SCRIPTS -->
+  <script src="utils.js"></script>
+  <script src="splitter.js"></script>
+  <script src="tojpg.js"></script>
+  <script src="topdf.js"></script>
+  <script src="combiner.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
