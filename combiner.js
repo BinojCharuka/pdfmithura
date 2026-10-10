@@ -33,12 +33,16 @@ const Combiner = (() => {
     downloadBtn.addEventListener('click', doDownload);
     resetBtn.addEventListener('click', reset);
 
-    // Drag reorder
-    pdfList.addEventListener('dragstart', onDragStart);
-    pdfList.addEventListener('dragover', onDragOver);
-    pdfList.addEventListener('dragleave', onDragLeave);
-    pdfList.addEventListener('drop', onDrop);
-    pdfList.addEventListener('dragend', onDragEnd);
+    // Drag reorder using shared utility
+    makeDraggableList(pdfList, updateOrder);
+  }
+
+  function updateOrder() {
+    const newOrderIds = Array.from(pdfList.querySelectorAll('.pdf-card')).map(el => parseInt(el.dataset.id, 10));
+    pdfItems.sort((a, b) => newOrderIds.indexOf(a.id) - newOrderIds.indexOf(b.id));
+    pdfList.querySelectorAll('.card-order').forEach((el, idx) => {
+      el.textContent = idx + 1;
+    });
   }
 
   // ── File handling ──────────────────────────────────────────
@@ -108,67 +112,7 @@ const Combiner = (() => {
     if (pdfItems.length === 0) hide(filesSection);
   }
 
-  // ── Drag reorder ───────────────────────────────────────────
-  function onDragStart(e) {
-    const card = e.target.closest('[data-id]');
-    if (!card) return;
-    dragSrcId = parseInt(card.dataset.id, 10);
-    card.classList.add('dragging');
-    e.dataTransfer.effectAllowed = 'move';
-  }
-
-  function onDragOver(e) {
-    e.preventDefault();
-    const target = e.target.closest('[data-id]');
-    clearDragOver();
-    if (target && parseInt(target.dataset.id, 10) !== dragSrcId) {
-      const rect = target.getBoundingClientRect();
-      const y = e.clientY - rect.top;
-      target.classList.add(y < rect.height / 2 ? 'drag-over-top' : 'drag-over-bottom');
-    }
-  }
-
-  function onDragLeave(e) {
-    if (!pdfList.contains(e.relatedTarget)) clearDragOver();
-  }
-
-  function onDrop(e) {
-    e.preventDefault();
-    const target = e.target.closest('[data-id]');
-    const targetId = target ? parseInt(target.dataset.id, 10) : null;
-
-    clearDragOver();
-    pdfList.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
-
-    if (!targetId || targetId === dragSrcId) return;
-
-    const srcIdx = pdfItems.findIndex(i => i.id === dragSrcId);
-    const tgtIdx = pdfItems.findIndex(i => i.id === targetId);
-    if (srcIdx === -1 || tgtIdx === -1) return;
-
-    const rect = target.getBoundingClientRect();
-    const y = e.clientY - rect.top;
-    const afterTarget = y >= rect.height / 2;
-
-    const [removed] = pdfItems.splice(srcIdx, 1);
-    const insertAt = afterTarget
-      ? tgtIdx + (srcIdx < tgtIdx ? 0 : 1)
-      : tgtIdx - (srcIdx > tgtIdx ? 0 : 1);
-    pdfItems.splice(Math.max(0, insertAt), 0, removed);
-    renderList();
-  }
-
-  function onDragEnd() {
-    clearDragOver();
-    pdfList.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
-    dragSrcId = null;
-  }
-
-  function clearDragOver() {
-    pdfList.querySelectorAll('.drag-over-top, .drag-over-bottom').forEach(el => {
-      el.classList.remove('drag-over-top', 'drag-over-bottom');
-    });
-  }
+  // ── (Drag reorder logic moved to utils.js) ─────────────────
 
   // ── Combine ────────────────────────────────────────────────
   async function doCombine() {
