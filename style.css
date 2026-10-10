@@ -293,6 +293,7 @@ body {
 .tool-card-icon--tojpg    { color: var(--olive-light); }
 .tool-card-icon--topdf    { color: var(--olive-light); }
 .tool-card-icon--combiner { color: var(--olive-light); }
+.tool-card-icon--compressor { color: var(--olive-light); }
 
 .tool-card-title { font-size: 0.9rem; font-weight: 600; color: var(--white); }
 

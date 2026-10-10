@@ -9,6 +9,7 @@ const pages = {
   'to-jpg': document.getElementById('page-to-jpg'),
   'to-pdf': document.getElementById('page-to-pdf'),
   combiner: document.getElementById('page-combiner'),
+  compressor: document.getElementById('page-compressor'),
 };
 
 const navLinks = document.querySelectorAll('[data-tool]');
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ToJpg.init();
   ToPdf.init();
   Combiner.init();
+  Compressor.init();
 
   // Initial page load from hash
   loadFromHash();
