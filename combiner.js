@@ -97,13 +97,33 @@ const Combiner = (() => {
           <div class="card-name">${item.file.name}</div>
           <div class="card-meta">${formatFileSize(item.file.size)} • ${item.pages} page${item.pages !== 1 ? 's' : ''}</div>
         </div>
-        <button class="card-remove" data-id="${item.id}" aria-label="Remove ${item.file.name}">✕</button>
+        <div class="card-actions">
+          <button class="card-action-btn card-move-up" data-id="${item.id}" aria-label="Move Up" title="Move Up">↑</button>
+          <button class="card-action-btn card-move-down" data-id="${item.id}" aria-label="Move Down" title="Move Down">↓</button>
+          <button class="card-remove" data-id="${item.id}" aria-label="Remove ${item.file.name}" title="Remove">✕</button>
+        </div>
       `;
 
+      card.querySelector('.card-move-up').addEventListener('click', () => moveItem(item.id, -1));
+      card.querySelector('.card-move-down').addEventListener('click', () => moveItem(item.id, 1));
       card.querySelector('.card-remove').addEventListener('click', () => removeItem(item.id));
       pdfList.appendChild(card);
     });
     fileCount.textContent = pdfItems.length;
+  }
+
+  function moveItem(id, dir) {
+    const idx = pdfItems.findIndex(i => i.id === id);
+    if (idx === -1) return;
+    const newIdx = idx + dir;
+    if (newIdx < 0 || newIdx >= pdfItems.length) return;
+    
+    // Swap
+    const temp = pdfItems[idx];
+    pdfItems[idx] = pdfItems[newIdx];
+    pdfItems[newIdx] = temp;
+    
+    renderList();
   }
 
   function removeItem(id) {

@@ -105,13 +105,33 @@ const ToPdf = (() => {
           <div class="card-name">${item.file.name}</div>
           <div class="card-meta">${formatFileSize(item.file.size)}${item.width ? ` • ${item.width}×${item.height}px` : ''}</div>
         </div>
-        <button class="card-remove" data-id="${item.id}" aria-label="Remove ${item.file.name}">✕</button>
+        <div class="card-actions">
+          <button class="card-action-btn card-move-up" data-id="${item.id}" aria-label="Move Up" title="Move Up">↑</button>
+          <button class="card-action-btn card-move-down" data-id="${item.id}" aria-label="Move Down" title="Move Down">↓</button>
+          <button class="card-remove" data-id="${item.id}" aria-label="Remove ${item.file.name}" title="Remove">✕</button>
+        </div>
       `;
 
+      card.querySelector('.card-move-up').addEventListener('click', () => moveItem(item.id, -1));
+      card.querySelector('.card-move-down').addEventListener('click', () => moveItem(item.id, 1));
       card.querySelector('.card-remove').addEventListener('click', () => removeItem(item.id));
       imageList.appendChild(card);
     });
     imageCount.textContent = imageItems.length;
+  }
+
+  function moveItem(id, dir) {
+    const idx = imageItems.findIndex(i => i.id === id);
+    if (idx === -1) return;
+    const newIdx = idx + dir;
+    if (newIdx < 0 || newIdx >= imageItems.length) return;
+    
+    // Swap
+    const temp = imageItems[idx];
+    imageItems[idx] = imageItems[newIdx];
+    imageItems[newIdx] = temp;
+    
+    renderList();
   }
 
   function removeItem(id) {

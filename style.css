@@ -724,14 +724,22 @@ body {
   text-align: center; flex-shrink: 0;
 }
 
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-action-btn,
 .card-remove {
   background: none; border: none; cursor: pointer;
   color: var(--faint); padding: 4px 6px; border-radius: 4px;
-  font-size: 0.82rem;
+  font-size: 0.85rem; font-weight: bold;
   transition: color var(--t), background var(--t);
-  flex-shrink: 0;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
 }
 
+.card-action-btn:hover { color: var(--white); background: rgba(255,255,255,0.08); }
 .card-remove:hover { color: var(--danger); background: rgba(201,92,92,0.08); }
 
 /* ============================================
