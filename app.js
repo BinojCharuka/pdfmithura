@@ -110,6 +110,18 @@ document.addEventListener('DOMContentLoaded', () => {
   Combiner.init();
   Compressor.init();
 
+  // Visitor counter
+  fetch('https://countapi.mileshilliard.com/api/v1/hit/pdfmithura_views')
+    .then(res => res.json())
+    .then(data => {
+      const el = document.getElementById('visit-count');
+      if (el) el.textContent = data.value.toLocaleString();
+    })
+    .catch(() => {
+      const el = document.getElementById('visit-count');
+      if (el) el.textContent = '-';
+    });
+
   // Initial page load from hash
   loadFromHash();
 });
