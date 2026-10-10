@@ -145,7 +145,7 @@ const Compressor = (() => {
 
   function doDownload() {
     if (!downloadData) return;
-    downloadFile(downloadData.blob, downloadData.name);
+    triggerDownload(downloadData.blob, downloadData.name);
   }
 
   function reset() {
