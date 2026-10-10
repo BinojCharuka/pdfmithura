@@ -1,0 +1,22 @@
+{
+  "name": "PDF Mithura",
+  "short_name": "PDF Mithura",
+  "description": "Free, browser-based PDF tools. Split, convert, combine and organize PDFs locally.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#a4f205",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo-sm.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
