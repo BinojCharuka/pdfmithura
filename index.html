@@ -612,20 +612,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
   <!-- APP SCRIPTS -->
-  <script src="utils.js"></script>
-  <script src="splitter.js"></script>
-  <script src="tojpg.js"></script>
-  <script src="topdf.js"></script>
-  <script src="combiner.js"></script>
-  <script src="compressor.js"></script>
-  <script src="app.js"></script>
+  <script src="utils.js?v=2"></script>
+  <script src="splitter.js?v=2"></script>
+  <script src="tojpg.js?v=2"></script>
+  <script src="topdf.js?v=2"></script>
+  <script src="combiner.js?v=2"></script>
+  <script src="compressor.js?v=2"></script>
+  <script src="app.js?v=2"></script>
 
   <!-- PWA SERVICE WORKER REGISTRATION -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('ServiceWorker registration successful'))
+          .then(reg => {
+            reg.update();
+            console.log('ServiceWorker registration successful');
+          })
           .catch(err => console.log('ServiceWorker registration failed: ', err));
       });
     }

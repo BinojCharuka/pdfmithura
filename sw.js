@@ -1,15 +1,15 @@
-const CACHE_NAME = 'pdf-mithura-cache-v2';
+const CACHE_NAME = 'pdf-mithura-cache-v3';
 const urlsToCache = [
   './',
   './index.html',
   './style.css',
-  './utils.js',
-  './splitter.js',
-  './tojpg.js',
-  './topdf.js',
-  './combiner.js',
-  './compressor.js',
-  './app.js',
+  './utils.js?v=2',
+  './splitter.js?v=2',
+  './tojpg.js?v=2',
+  './topdf.js?v=2',
+  './combiner.js?v=2',
+  './compressor.js?v=2',
+  './app.js?v=2',
   './logo-sm.png',
   './favicon.png',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
@@ -19,34 +19,11 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
         return cache.addAll(urlsToCache);
-      })
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).then(
-          response => {
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            var responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-            return response;
-          }
-        );
       })
   );
 });
@@ -62,6 +39,33 @@ self.addEventListener('activate', event => {
           }
         })
       );
+    }).then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  // Network first for app assets so updates appear immediately
+  if (event.request.url.startsWith(self.location.origin)) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          if (response && response.status === 200 && response.type === 'basic') {
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Cache first for external CDN assets
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
     })
   );
 });
