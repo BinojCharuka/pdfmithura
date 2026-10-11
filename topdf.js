@@ -266,12 +266,12 @@ const ToPdf = (() => {
         });
       }
 
-      setProgress(progressFill, progressLbl, 95, 'Creating ZIP…');
+      setProgress(progressFill, progressLbl, 95, 'Finalizing PDF…');
       const bytes = await pdfDoc.save();
       downloadBlob = new Blob([bytes], { type: 'application/pdf' });
 
       setProgress(progressFill, progressLbl, 100, 'Done!');
-      downloadBtn.textContent = '⬇️ Download ZIP';
+      downloadBtn.textContent = '⬇️ Download PDF';
       show(resultCard);
     } catch (e) {
       showError(errorEl, e.message || 'An error occurred while creating the PDF. Please try again.');
@@ -284,8 +284,7 @@ const ToPdf = (() => {
 
   function doDownload() {
     if (!downloadBlob) return;
-    // Always ZIP — bare blob downloads lose their .pdf extension on macOS/Chrome
-    downloadZip([{ name: 'images-to-pdf.pdf', blob: downloadBlob }], 'images-to-pdf.zip');
+    triggerDownload(downloadBlob, 'images-to-pdf.pdf');
   }
 
   // ── Reset ──────────────────────────────────────────────────

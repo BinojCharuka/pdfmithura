@@ -224,20 +224,21 @@ const Splitter = (() => {
     const copied = await newDoc.copyPages(pdfLibDoc, indices);
     copied.forEach(p => newDoc.addPage(p));
 
-    setProgress(progressFill, progressLbl, 80, 'Creating ZIP…');
+    setProgress(progressFill, progressLbl, 90, 'Finalizing PDF…');
     const bytes = await newDoc.save();
     const pdfBlob = new Blob([bytes], { type: 'application/pdf' });
-    // Store as array so doDownload always uses ZIP path
-    downloadBlob = [{ name: 'split-pages.pdf', blob: pdfBlob }];
+    const outputName = pdfFile ? pdfFile.name.replace(/\.pdf$/i, '_extracted.pdf') : 'split-pages.pdf';
+    downloadBlob = { type: 'single', name: outputName, blob: pdfBlob };
 
     setProgress(progressFill, progressLbl, 100, 'Done!');
     resultText.textContent = `Extracted ${pages.length} page${pages.length !== 1 ? 's' : ''} into 1 PDF.`;
-    downloadBtn.textContent = '⬇️ Download ZIP';
+    downloadBtn.textContent = '⬇️ Download PDF';
     show(resultCard);
   }
 
   async function splitEveryPage() {
     const blobs = [];
+    const baseName = pdfFile ? pdfFile.name.replace(/\.pdf$/i, '') : 'page';
 
     for (let i = 1; i <= totalPages; i++) {
       const pct = Math.round((i / totalPages) * 90);
@@ -247,16 +248,19 @@ const Splitter = (() => {
       const [page] = await newDoc.copyPages(pdfLibDoc, [i - 1]);
       newDoc.addPage(page);
       const bytes = await newDoc.save();
-      blobs.push({ name: `page-${i}.pdf`, blob: new Blob([bytes], { type: 'application/pdf' }) });
+      blobs.push({ name: `${baseName}-page-${i}.pdf`, blob: new Blob([bytes], { type: 'application/pdf' }) });
     }
 
-    setProgress(progressFill, progressLbl, 95, 'Creating ZIP…');
-    // Always ZIP regardless of count — preserves .pdf extension on all OS/browsers
-    downloadBlob = blobs;
-    resultText.textContent = blobs.length === 1
-      ? '1 PDF created. Download the ZIP to access it.'
-      : `${blobs.length} PDFs created. Download as ZIP.`;
-    downloadBtn.textContent = '⬇️ Download ZIP';
+    if (blobs.length === 1) {
+      downloadBlob = { type: 'single', name: blobs[0].name, blob: blobs[0].blob };
+      resultText.textContent = '1 PDF created.';
+      downloadBtn.textContent = '⬇️ Download PDF';
+    } else {
+      setProgress(progressFill, progressLbl, 95, 'Preparing ZIP…');
+      downloadBlob = { type: 'zip', files: blobs, name: `${baseName}-split.zip` };
+      resultText.textContent = `${blobs.length} PDFs created. Download as ZIP.`;
+      downloadBtn.textContent = '⬇️ Download ZIP';
+    }
 
     setProgress(progressFill, progressLbl, 100, 'Done!');
     show(resultCard);
@@ -264,10 +268,11 @@ const Splitter = (() => {
 
   function doDownload() {
     if (!downloadBlob) return;
-    // Always ZIP — bare blob downloads lose their .pdf extension on macOS/Chrome
-    const files = Array.isArray(downloadBlob) ? downloadBlob : [{ name: 'split-pages.pdf', blob: downloadBlob }];
-    const zipName = files.length === 1 ? 'split-pages.zip' : 'split-pages.zip';
-    downloadZip(files, zipName);
+    if (downloadBlob.type === 'single') {
+      triggerDownload(downloadBlob.blob, downloadBlob.name);
+    } else {
+      downloadZip(downloadBlob.files, downloadBlob.name);
+    }
   }
 
   // ── Reset ──────────────────────────────────────────────────

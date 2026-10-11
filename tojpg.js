@@ -211,14 +211,16 @@ const ToJpg = (() => {
         canvas.height = 0;
       }
 
-      setProgress(progressFill, progressLbl, 95, 'Creating ZIP…');
-
-      // Always package as ZIP — ensures .jpg extension is preserved on all browsers/OS
-      downloadData = { type: 'zip', blobs, name: 'pdf-to-jpg.zip' };
-      resultText.textContent = blobs.length === 1
-        ? '1 JPG image created. Download the ZIP to open it.'
-        : `${blobs.length} JPG images created.`;
-      downloadBtn.textContent = '⬇️ Download ZIP';
+      if (blobs.length === 1) {
+        downloadData = { type: 'single', blob: blobs[0].blob, name: blobs[0].name };
+        resultText.textContent = '1 JPG image created.';
+        downloadBtn.textContent = '⬇️ Download JPG';
+      } else {
+        setProgress(progressFill, progressLbl, 95, 'Creating ZIP…');
+        downloadData = { type: 'zip', blobs, name: 'pdf-to-jpg.zip' };
+        resultText.textContent = `${blobs.length} JPG images created. Download as ZIP.`;
+        downloadBtn.textContent = '⬇️ Download ZIP';
+      }
 
       setProgress(progressFill, progressLbl, 100, 'Done!');
       show(resultCard);
@@ -233,8 +235,11 @@ const ToJpg = (() => {
 
   function doDownload() {
     if (!downloadData) return;
-    // Always ZIP — single files were getting dropped extensions by the browser
-    downloadZip(downloadData.blobs, downloadData.name);
+    if (downloadData.type === 'single') {
+      triggerDownload(downloadData.blob, downloadData.name);
+    } else {
+      downloadZip(downloadData.blobs, downloadData.name);
+    }
   }
 
   function reset() {

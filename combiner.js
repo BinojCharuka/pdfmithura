@@ -173,7 +173,7 @@ const Combiner = (() => {
         totalPagesCombined += pageCount;
       }
 
-      setProgress(progressFill, progressLbl, 95, 'Creating ZIP…');
+      setProgress(progressFill, progressLbl, 95, 'Finalizing PDF…');
       const bytes = await combinedDoc.save();
       downloadBlob = new Blob([bytes], { type: 'application/pdf' });
 
@@ -182,7 +182,7 @@ const Combiner = (() => {
       if (resultTextEl) {
         resultTextEl.textContent = `Combined ${pdfItems.length} PDFs (${totalPagesCombined} pages) successfully!`;
       }
-      downloadBtn.textContent = '⬇️ Download ZIP';
+      downloadBtn.textContent = '⬇️ Download PDF';
       show(resultCard);
     } catch (e) {
       showError(errorEl, e.message || 'An error occurred while combining PDFs. Please try again.');
@@ -195,8 +195,7 @@ const Combiner = (() => {
 
   function doDownload() {
     if (!downloadBlob) return;
-    // Always ZIP — bare blob downloads lose their .pdf extension on macOS/Chrome
-    downloadZip([{ name: 'combined.pdf', blob: downloadBlob }], 'combined.zip');
+    triggerDownload(downloadBlob, 'combined.pdf');
   }
 
   // ── Reset ──────────────────────────────────────────────────

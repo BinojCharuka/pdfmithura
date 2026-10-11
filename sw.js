@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pdf-mithura-cache-v1';
+const CACHE_NAME = 'pdf-mithura-cache-v2';
 const urlsToCache = [
   './',
   './index.html',
