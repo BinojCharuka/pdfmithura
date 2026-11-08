@@ -30,6 +30,7 @@
         <a href="#" class="nav-link" data-tool="to-pdf">JPG to PDF</a>
         <a href="#" class="nav-link" data-tool="combiner">PDF Combiner</a>
         <a href="#" class="nav-link" data-tool="compressor">PDF Compressor</a>
+        <a href="#" class="nav-link" data-tool="md">MD Generator</a>
       </nav>
 
       <div class="header-right">
@@ -50,6 +51,7 @@
       <a href="#" class="mobile-nav-link" data-tool="to-pdf">📄 JPG to PDF</a>
       <a href="#" class="mobile-nav-link" data-tool="combiner">🔗 PDF Combiner</a>
       <a href="#" class="mobile-nav-link" data-tool="compressor">🗜️ PDF Compressor</a>
+      <a href="#" class="mobile-nav-link" data-tool="md">📝 MD Generator</a>
     </nav>
   </div>
 
@@ -137,6 +139,21 @@
             <h3 class="tool-card-title">PDF Compressor</h3>
             <p class="tool-card-desc">Reduce PDF file size with extreme, normal, and less compression settings.</p>
             <button class="btn btn-primary tool-card-btn" data-tool="compressor" aria-label="Open PDF Compressor tool">Open Tool</button>
+          </article>
+
+          <article class="tool-card" role="listitem">
+            <div class="tool-card-icon tool-card-icon--md" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h3 class="tool-card-title">MD File Generator</h3>
+            <p class="tool-card-desc">Generate, edit, paste to convert & download Markdown (.md) documents with live preview.</p>
+            <button class="btn btn-primary tool-card-btn" data-tool="md" aria-label="Open MD File Generator tool">Open Tool</button>
           </article>
 
         </div>
@@ -586,6 +603,200 @@
       </div>
     </section>
 
+    <!-- ===== MD GENERATOR PAGE ===== -->
+    <section id="page-md" class="page" aria-label="Markdown Generator" hidden>
+      <div class="container tool-page" style="max-width: 1200px;">
+        <div class="tool-header">
+          <button class="back-btn" data-tool="home" aria-label="Go back to home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+            Back
+          </button>
+          <div>
+            <h1 class="tool-title">MD File Generator</h1>
+            <p class="tool-subtitle">Type, paste HTML or rich text to convert, and download ready-to-use Markdown (.md) files.</p>
+          </div>
+          <div class="md-header-actions" id="md-header-actions">
+            <div class="md-filename-wrap">
+              <span>📄</span>
+              <input type="text" id="md-filename" value="document.md" placeholder="filename.md">
+            </div>
+            <div class="md-header-btns">
+              <button class="btn btn-outline" onclick="mdOpenModal('convert')">✨ Convert</button>
+              <button class="btn btn-outline" onclick="mdOpenModal('templates')">📋 Templates</button>
+              <button class="btn btn-outline" onclick="mdOpenModal('cheatsheet')">📖 Cheatsheet</button>
+              <button class="btn btn-outline" onclick="mdCopy()">📋 Copy</button>
+
+              <div class="md-dropdown" id="md-export-dropdown">
+                <button class="btn btn-primary" onclick="mdToggleExportMenu()">⬇️ Export ▾</button>
+                <div class="md-dropdown-menu">
+                  <a onclick="mdDownload()">📝 Markdown (.md)</a>
+                  <a onclick="mdExportHTML()">🌐 HTML (.html)</a>
+                  <a onclick="mdExportPDF()">📄 Print / PDF (.pdf)</a>
+                  <a onclick="mdExportTXT()">📃 Plain Text (.txt)</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MD Editor Workspace Box -->
+        <div class="md-studio-wrapper">
+          <!-- Toolbar -->
+          <div class="md-toolbar">
+            <div class="md-toolbar-group">
+              <button class="md-tool-btn" title="Heading 1" onclick="mdInsertFormat('heading1')"><b>H1</b></button>
+              <button class="md-tool-btn" title="Heading 2" onclick="mdInsertFormat('heading2')"><b>H2</b></button>
+              <button class="md-tool-btn" title="Heading 3" onclick="mdInsertFormat('heading3')"><b>H3</b></button>
+            </div>
+            <div class="md-divider"></div>
+            <div class="md-toolbar-group">
+              <button class="md-tool-btn" title="Bold (Ctrl+B)" onclick="mdInsertFormat('bold')"><b>B</b></button>
+              <button class="md-tool-btn" title="Italic (Ctrl+I)" onclick="mdInsertFormat('italic')"><i>I</i></button>
+              <button class="md-tool-btn" title="Strikethrough" onclick="mdInsertFormat('strike')"><s>S</s></button>
+              <button class="md-tool-btn" title="Inline Code" onclick="mdInsertFormat('code')"><code>&lt;/&gt;</code></button>
+            </div>
+            <div class="md-divider"></div>
+            <div class="md-toolbar-group">
+              <button class="md-tool-btn" title="Bullet List" onclick="mdInsertFormat('ul')">•≡</button>
+              <button class="md-tool-btn" title="Numbered List" onclick="mdInsertFormat('ol')">1.</button>
+              <button class="md-tool-btn" title="Task List" onclick="mdInsertFormat('task')">☑</button>
+            </div>
+            <div class="md-divider"></div>
+            <div class="md-toolbar-group">
+              <button class="md-tool-btn" title="Link (Ctrl+K)" onclick="mdInsertFormat('link')">🔗</button>
+              <button class="md-tool-btn" title="Image" onclick="mdInsertFormat('image')">🖼️</button>
+              <button class="md-tool-btn" title="Table" onclick="mdInsertFormat('table')">▦</button>
+              <button class="md-tool-btn" title="Code Block" onclick="mdInsertFormat('codeblock')">{ }</button>
+              <button class="md-tool-btn" title="Blockquote" onclick="mdInsertFormat('quote')">❝</button>
+              <button class="md-tool-btn" title="Math Formula ($...$)" onclick="mdInsertFormat('math')">∑</button>
+              <button class="md-tool-btn" title="Horizontal Rule" onclick="mdInsertFormat('hr')">─</button>
+              <input type="file" id="md-image-input" accept="image/*" style="display:none;">
+              <button class="md-tool-btn" title="Upload Local Image" onclick="document.getElementById('md-image-input').click()">📤</button>
+              <button class="md-tool-btn" title="Toggle Fullscreen" onclick="mdToggleFullscreen()">⛶</button>
+            </div>
+            <div class="md-view-tabs" id="md-view-tabs">
+              <button class="md-tab-btn active" id="tab-editor" onclick="mdSwitchTab('editor')">✏️ Editor</button>
+              <button class="md-tab-btn" id="tab-preview" onclick="mdSwitchTab('preview')">👁️ Preview</button>
+              <button class="md-tab-btn md-desktop-only" id="tab-split" onclick="mdSwitchTab('split')">◫ Split</button>
+            </div>
+            <button class="btn btn-outline md-clear-btn" onclick="mdClear()">🗑️ Clear</button>
+          </div>
+
+          <!-- Dual Pane Area -->
+          <div class="md-workspace" id="md-editor-container">
+            <div class="md-drop-overlay" id="md-drop-zone">📄 Drop your .md, .txt, .html or Image here</div>
+
+            <!-- Editor Pane -->
+            <div class="md-pane md-pane-editor">
+              <div class="md-pane-top">
+                <span class="md-pane-title"><span class="md-dot"></span> Markdown Editor</span>
+                <span style="color:var(--faint);">Tip: Paste rich text/HTML to auto-convert</span>
+              </div>
+              <textarea id="md-editor" class="md-textarea" placeholder="# Start writing your Markdown document here...
+
+You can paste plain text, HTML, or copy directly from Google Docs / websites!
+
+## Highlights
+- **Direct conversion**: Pasting rich-text converts straight to Markdown
+- **Live formatting**: See exact output in real-time
+- **Export options**: Download as .md, .html, or print to .pdf" spellcheck="false"></textarea>
+            </div>
+
+            <!-- Preview Pane -->
+            <div class="md-pane md-pane-preview">
+              <div class="md-pane-top">
+                <span class="md-pane-title"><span class="md-dot"></span> Live Preview</span>
+                <span id="md-reading-time">1 min read</span>
+              </div>
+              <div id="md-preview" class="md-preview-content">
+                <div class="md-empty-preview">✨ Type or paste your content on the left to see the live preview here...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Bar -->
+          <div class="md-status-bar">
+            <div class="md-status-left">
+              <span>📝 <span id="md-char-count">0</span> chars</span>
+              <span>💬 <span id="md-word-count">0</span> words</span>
+              <span>📄 <span id="md-line-count">0</span> lines</span>
+            </div>
+            <div class="md-status-right">
+              <span id="md-save-status">💾 Auto-saved</span>
+              <span>UTF-8</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Convert Modal -->
+    <div class="md-modal-overlay" id="md-convert-modal">
+      <div class="md-modal">
+        <h2>✨ Smart Convert to Markdown</h2>
+        <p>Paste rich HTML or copied text from any website or Word document:</p>
+        <textarea class="md-convert-input" id="md-convert-input" placeholder="Paste HTML or formatted text here... e.g. <h1>Title</h1><p>Text</p>"></textarea>
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <button class="btn btn-outline" onclick="mdCloseModal('convert')">Cancel</button>
+          <button class="btn btn-primary" onclick="mdPerformConversion()">⚡ Convert & Insert</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Templates Modal -->
+    <div class="md-modal-overlay" id="md-templates-modal">
+      <div class="md-modal">
+        <h2>📋 Quick Templates</h2>
+        <p>Select a template to get started instantly:</p>
+        <div class="md-template-card" onclick="mdLoadTemplate('readme')">
+          <h3>📘 Project README.md</h3>
+          <p>Standard GitHub README with installation, usage, badges and license</p>
+        </div>
+        <div class="md-template-card" onclick="mdLoadTemplate('blog')">
+          <h3>📝 Article / Blog Post</h3>
+          <p>Template with frontmatter metadata, headers, cover image & quotes</p>
+        </div>
+        <div class="md-template-card" onclick="mdLoadTemplate('math')">
+          <h3>🧮 Math & Science Notes</h3>
+          <p>Mathematical formulas and scientific notation</p>
+        </div>
+        <div class="md-template-card" onclick="mdLoadTemplate('notes')">
+          <h3>📒 Meeting Notes</h3>
+          <p>Meeting minutes with agenda, discussions, and action items</p>
+        </div>
+        <div style="margin-top:16px; text-align:right;">
+          <button class="btn btn-outline" onclick="mdCloseModal('templates')">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cheatsheet Modal -->
+    <div class="md-modal-overlay" id="md-cheatsheet-modal">
+      <div class="md-modal">
+        <h2>📖 Markdown Cheatsheet</h2>
+        <p>Quick reference syntax guide:</p>
+        <div class="md-cheatsheet-grid">
+          <div class="md-cheat-item"><span class="md-cheat-desc">Heading 1</span><span class="md-cheat-syntax"># text</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Heading 2</span><span class="md-cheat-syntax">## text</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Bold</span><span class="md-cheat-syntax">**text**</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Italic</span><span class="md-cheat-syntax">*text*</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Strikethrough</span><span class="md-cheat-syntax">~~text~~</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Math Formula</span><span class="md-cheat-syntax">$E=mc^2$</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Inline Code</span><span class="md-cheat-syntax">`code`</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Code Block</span><span class="md-cheat-syntax">```js ...```</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Link</span><span class="md-cheat-syntax">[text](url)</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Image</span><span class="md-cheat-syntax">![alt](url)</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Bullet List</span><span class="md-cheat-syntax">- item</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Task List</span><span class="md-cheat-syntax">- [ ] task</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Blockquote</span><span class="md-cheat-syntax">> text</span></div>
+          <div class="md-cheat-item"><span class="md-cheat-desc">Table</span><span class="md-cheat-syntax">| A | B |</span></div>
+        </div>
+        <div style="margin-top:16px; text-align:right;">
+          <button class="btn btn-outline" onclick="mdCloseModal('cheatsheet')">Close</button>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- FOOTER -->
@@ -610,6 +821,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <!-- Markdown & KaTeX libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/turndown/dist/turndown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/turndown-plugin-gfm/dist/turndown-plugin-gfm.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
   <!-- APP SCRIPTS -->
   <script src="utils.js?v=2"></script>
@@ -618,6 +838,7 @@
   <script src="topdf.js?v=2"></script>
   <script src="combiner.js?v=2"></script>
   <script src="compressor.js?v=2"></script>
+  <script src="md-generator.js?v=1"></script>
   <script src="app.js?v=2"></script>
 
   <!-- PWA SERVICE WORKER REGISTRATION -->

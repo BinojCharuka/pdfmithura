@@ -10,6 +10,7 @@ const pages = {
   'to-pdf': document.getElementById('page-to-pdf'),
   combiner: document.getElementById('page-combiner'),
   compressor: document.getElementById('page-compressor'),
+  md:       document.getElementById('page-md'),
 };
 
 const navLinks = document.querySelectorAll('[data-tool]');
