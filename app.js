@@ -46,11 +46,12 @@ function navigate(tool) {
 }
 
 // ── Bind nav links ─────────────────────────────────────────
-navLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('[data-tool]');
+  if (link) {
     e.preventDefault();
     navigate(link.dataset.tool);
-  });
+  }
 });
 
 // ── Hash-based routing ──────────────────────────────────────
@@ -62,7 +63,7 @@ function loadFromHash() {
     // Ensure home is shown
     const home = pages['home'];
     if (home) { home.hidden = false; home.classList.add('active'); }
-    navLinks.forEach(link => {
+    document.querySelectorAll('[data-tool]').forEach(link => {
       link.classList.toggle('active', link.dataset.tool === 'home');
     });
   }
@@ -104,12 +105,12 @@ document.addEventListener('keydown', (e) => {
 // ============================================================
 // Initialize all tool modules
 // ============================================================
-document.addEventListener('DOMContentLoaded', () => {
-  Splitter.init();
-  ToJpg.init();
-  ToPdf.init();
-  Combiner.init();
-  Compressor.init();
+function initApp() {
+  if (typeof Splitter !== 'undefined' && Splitter.init) Splitter.init();
+  if (typeof ToJpg !== 'undefined' && ToJpg.init) ToJpg.init();
+  if (typeof ToPdf !== 'undefined' && ToPdf.init) ToPdf.init();
+  if (typeof Combiner !== 'undefined' && Combiner.init) Combiner.init();
+  if (typeof Compressor !== 'undefined' && Compressor.init) Compressor.init();
 
   // Visitor counter
   fetch('https://countapi.mileshilliard.com/api/v1/hit/pdfmithura_views')
@@ -125,7 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial page load from hash
   loadFromHash();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
 
 // ============================================================
 // Global drag-over prevention (prevent browser from opening files)
