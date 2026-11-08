@@ -3,73 +3,85 @@
 // ============================================================
 // Navigation / router
 // ============================================================
-const pages = {
-  home:     document.getElementById('page-home'),
-  splitter: document.getElementById('page-splitter'),
-  'to-jpg': document.getElementById('page-to-jpg'),
-  'to-pdf': document.getElementById('page-to-pdf'),
-  combiner: document.getElementById('page-combiner'),
-  compressor: document.getElementById('page-compressor'),
-  md:       document.getElementById('page-md'),
-};
+function getPages() {
+  return {
+    home:     document.getElementById('page-home'),
+    splitter: document.getElementById('page-splitter'),
+    'to-jpg': document.getElementById('page-to-jpg'),
+    'to-pdf': document.getElementById('page-to-pdf'),
+    combiner: document.getElementById('page-combiner'),
+    compressor: document.getElementById('page-compressor'),
+    md:       document.getElementById('page-md'),
+  };
+}
 
-const navLinks = document.querySelectorAll('[data-tool]');
 let currentPage = 'home';
 
 function navigate(tool) {
+  const pages = getPages();
   if (!pages[tool]) tool = 'home';
-  if (tool === currentPage) return;
 
-  // Hide current
-  const oldPage = pages[currentPage];
-  if (oldPage) { oldPage.classList.remove('active'); oldPage.hidden = true; }
+  // Hide all pages first to prevent any clash
+  Object.keys(pages).forEach(key => {
+    const p = pages[key];
+    if (p) {
+      p.classList.remove('active');
+      p.hidden = true;
+    }
+  });
 
-  // Show new
+  // Show target page
   const newPage = pages[tool];
-  if (newPage) { newPage.hidden = false; newPage.classList.add('active'); }
+  if (newPage) {
+    newPage.hidden = false;
+    newPage.classList.add('active');
+  }
 
   currentPage = tool;
 
   // Update nav active state
-  navLinks.forEach(link => {
+  document.querySelectorAll('[data-tool]').forEach(link => {
     link.classList.toggle('active', link.dataset.tool === tool);
   });
 
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Close mobile menu
+  // Close mobile menu if open
   closeMobileMenu();
 
-  // Update hash for shallow routing
-  history.pushState({ tool }, '', `#${tool}`);
+  // Update hash
+  if (location.hash.replace('#', '') !== tool) {
+    history.pushState({ tool }, '', `#${tool}`);
+  }
 }
 
-// ── Bind nav links ─────────────────────────────────────────
+// ── Delegated Click Handler for all [data-tool] elements ────
 document.addEventListener('click', (e) => {
   const link = e.target.closest('[data-tool]');
   if (link) {
     e.preventDefault();
-    navigate(link.dataset.tool);
+    e.stopPropagation();
+    const tool = link.getAttribute('data-tool');
+    if (tool) {
+      navigate(tool);
+    }
   }
 });
 
 // ── Hash-based routing ──────────────────────────────────────
 function loadFromHash() {
   const hash = location.hash.replace('#', '').trim();
+  const pages = getPages();
   if (hash && pages[hash]) {
     navigate(hash);
   } else {
-    // Ensure home is shown
-    const home = pages['home'];
-    if (home) { home.hidden = false; home.classList.add('active'); }
-    document.querySelectorAll('[data-tool]').forEach(link => {
-      link.classList.toggle('active', link.dataset.tool === 'home');
-    });
+    navigate('home');
   }
 }
 
 window.addEventListener('popstate', loadFromHash);
+window.addEventListener('hashchange', loadFromHash);
 
 // ============================================================
 // Mobile hamburger menu
@@ -106,13 +118,16 @@ document.addEventListener('keydown', (e) => {
 // Initialize all tool modules
 // ============================================================
 function initApp() {
-  if (typeof Splitter !== 'undefined' && Splitter.init) Splitter.init();
-  if (typeof ToJpg !== 'undefined' && ToJpg.init) ToJpg.init();
-  if (typeof ToPdf !== 'undefined' && ToPdf.init) ToPdf.init();
-  if (typeof Combiner !== 'undefined' && Combiner.init) Combiner.init();
-  if (typeof Compressor !== 'undefined' && Compressor.init) Compressor.init();
+  try { if (typeof Splitter !== 'undefined' && Splitter.init) Splitter.init(); } catch (e) { console.error('Splitter init error:', e); }
+  try { if (typeof ToJpg !== 'undefined' && ToJpg.init) ToJpg.init(); } catch (e) { console.error('ToJpg init error:', e); }
+  try { if (typeof ToPdf !== 'undefined' && ToPdf.init) ToPdf.init(); } catch (e) { console.error('ToPdf init error:', e); }
+  try { if (typeof Combiner !== 'undefined' && Combiner.init) Combiner.init(); } catch (e) { console.error('Combiner init error:', e); }
+  try { if (typeof Compressor !== 'undefined' && Compressor.init) Compressor.init(); } catch (e) { console.error('Compressor init error:', e); }
 
-  // Visitor counter
+  // Initial page load from hash
+  loadFromHash();
+
+  // Visitor counter (async and non-blocking)
   fetch('https://countapi.mileshilliard.com/api/v1/hit/pdfmithura_views')
     .then(res => res.json())
     .then(data => {
@@ -123,9 +138,6 @@ function initApp() {
       const el = document.getElementById('visit-count');
       if (el) el.textContent = '-';
     });
-
-  // Initial page load from hash
-  loadFromHash();
 }
 
 if (document.readyState === 'loading') {

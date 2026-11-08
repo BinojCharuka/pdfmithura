@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pdf-mithura-cache-v3';
+const CACHE_NAME = 'pdf-mithura-cache-v4';
 const urlsToCache = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const urlsToCache = [
   './topdf.js?v=2',
   './combiner.js?v=2',
   './compressor.js?v=2',
+  './md-generator.js?v=1',
   './app.js?v=2',
   './logo-sm.png',
   './favicon.png',
