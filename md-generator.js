@@ -325,7 +325,149 @@ ${marked.parse(editor.value)}
   };
 
   window.mdExportPDF = function () {
-    window.print();
+    if (!editor || !editor.value.trim()) {
+      if (typeof showToast === 'function') showToast('Editor is empty!', 'error');
+      return;
+    }
+
+    let baseName = (filenameInput?.value.trim() || 'document').replace(/\.[^.]+$/, '');
+    const previewClone = preview ? preview.cloneNode(true) : null;
+    const renderedHtml = previewClone ? previewClone.innerHTML : marked.parse(editor.value);
+
+    // Open clean print window containing only the rendered document
+    const printWindow = window.open('', '_blank', 'width=900,height=800');
+    if (!printWindow) {
+      // Fallback to in-page print if popup is blocked
+      window.print();
+      return;
+    }
+
+    printWindow.document.open();
+    printWindow.document.write(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${baseName}</title>
+  <!-- KaTeX styles for math formulas in PDF -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    @page {
+      margin: 18mm 18mm 18mm 18mm;
+      size: A4 portrait;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.65;
+      color: #111827;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      color: #0f172a;
+      font-weight: 700;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    h1 { font-size: 20pt; margin: 0 0 12pt; border-bottom: 2px solid #e2e8f0; padding-bottom: 6pt; }
+    h2 { font-size: 15pt; margin: 18pt 0 8pt; border-bottom: 1px solid #e2e8f0; padding-bottom: 4pt; }
+    h3 { font-size: 12.5pt; margin: 14pt 0 6pt; }
+    p { margin: 0 0 10pt; }
+    ul, ol { margin: 0 0 10pt; padding-left: 20pt; }
+    li { margin-bottom: 4pt; }
+    blockquote {
+      border-left: 3.5pt solid #538000;
+      margin: 10pt 0;
+      padding: 6pt 14pt;
+      background: #f8fafc;
+      color: #334155;
+      font-style: italic;
+    }
+    pre {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6pt;
+      padding: 10pt 12pt;
+      margin: 10pt 0;
+      overflow-x: auto;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      background: #f1f5f9;
+      padding: 1.5pt 4pt;
+      border-radius: 3pt;
+      color: #0f172a;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12pt 0;
+      font-size: 10pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 6pt 10pt;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      font-weight: 600;
+    }
+    tr:nth-child(even) { background: #f8fafc; }
+    img {
+      max-width: 100%;
+      height: auto;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      border-radius: 4pt;
+      margin: 8pt 0;
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background: #e2e8f0;
+      margin: 16pt 0;
+    }
+    .katex-display {
+      margin: 12pt 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+  </style>
+</head>
+<body>
+  ${renderedHtml}
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        window.focus();
+        window.print();
+        window.close();
+      }, 350);
+    });
+  </script>
+</body>
+</html>`);
+    printWindow.document.close();
   };
 
   window.mdCopy = function () {

@@ -1440,3 +1440,147 @@ body {
   }
 }
 
+
+
+/* ============================================
+   PRINT STYLES (Clean PDF document generation)
+   ============================================ */
+@media print {
+  /* Hide all website chrome, headers, toolbars, editor, footer */
+  .site-header,
+  .site-footer,
+  .mobile-nav-overlay,
+  .toast,
+  .md-toolbar,
+  .md-status-bar,
+  .md-pane-editor,
+  .md-pane-top,
+  .tool-header,
+  .md-modal-overlay,
+  .md-drop-overlay,
+  #page-home,
+  #page-splitter,
+  #page-to-jpg,
+  #page-to-pdf,
+  #page-combiner,
+  #page-compressor {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+  }
+
+  .container,
+  .tool-page,
+  .md-studio-wrapper,
+  .md-workspace,
+  .md-pane,
+  .md-pane-preview,
+  .md-preview-content {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  .md-preview-content {
+    color: #111827 !important;
+  }
+
+  .md-preview-content h1,
+  .md-preview-content h2,
+  .md-preview-content h3,
+  .md-preview-content h4,
+  .md-preview-content h5,
+  .md-preview-content h6 {
+    color: #0f172a !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  .md-preview-content h1 {
+    font-size: 20pt !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    padding-bottom: 6pt !important;
+  }
+
+  .md-preview-content h2 {
+    font-size: 15pt !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 4pt !important;
+  }
+
+  .md-preview-content h3 {
+    font-size: 12.5pt !important;
+  }
+
+  .md-preview-content p {
+    color: #1f2937 !important;
+    line-height: 1.65 !important;
+  }
+
+  .md-preview-content a {
+    color: #1e3a8a !important;
+    text-decoration: underline !important;
+  }
+
+  .md-preview-content blockquote {
+    background: #f8fafc !important;
+    border-left: 3.5pt solid #538000 !important;
+    color: #334155 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .md-preview-content pre {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #0f172a !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .md-preview-content code {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+  }
+
+  .md-preview-content pre code {
+    background: transparent !important;
+  }
+
+  .md-preview-content table {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .md-preview-content th,
+  .md-preview-content td {
+    border: 1px solid #cbd5e1 !important;
+    color: #111827 !important;
+  }
+
+  .md-preview-content th {
+    background: #f1f5f9 !important;
+  }
+
+  .md-preview-content img {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    border: none !important;
+  }
+
+  .katex-display {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
